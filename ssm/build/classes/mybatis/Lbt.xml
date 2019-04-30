@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.LbtMapper" >
+<select id="sellbt" resultType="Bean.Lbt">
+select * from lbt; 
+</select>
+<select id="sellbtbyid"  parameterType="int" resultType="Bean.Lbt" >
+select * from lbt where id=#{id} 
+</select>
+
+<insert id="insertlbt"  parameterType="Bean.Lbt" >
+ insert into lbt values(#{id},#{img},#{src});
+</insert>
+<delete id="dellbt" parameterType="Bean.Lbt"  >
+delete from lbt where id=#{id}
+ </delete>
+ <update id="updatelbt" parameterType="util.Lbtutil">
+ UPDATE lbt SET img=#{newimg},src=#{src}  WHERE id=#{oldimgid};
+ </update>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.S_GmapperMapper">
+
+<insert id="inserts_gmapper" parameterType="Bean.S_Gmapper" >
+insert into s_gmapper values(#{id},#{s_id},#{g_id})
+</insert>
+<delete id="dels_gmapper" parameterType="int" >
+delete from s_gmapper where id=#{id}
+</delete>
+	<delete id="dels_gmapperbySidAndGid" parameterType="util.Middleutil" >
+	delete from s_gmapper where s_id=#{sid} and g_id=#{gid}
+	</delete>
+
+<update id="mos_gmapper"  parameterType="Bean.S_Gmapper" >
+UPDATE s_gmapper SET s_id=#{s_id},g_id=#{g_id} WHERE id=#{id}
+</update>
+<select id="showalls_gmapper" resultType="Bean.S_Gmapper" >
+select * from s_gmapper;
+</select>
+
+<select id="shows_gmapperbypage" resultType="Bean.S_Gmapper"  parameterType="util.Page"  >
+select  * from s_gmapper order by id desc limit #{start},#{size};
+</select>
+<select id="adselpage" resultType="int" >
+select count(*) from s_gmapper;
+</select>
+
+<select id="sels_gmapper"  parameterType="int"   resultType="Bean.S_Gmapper" >
+select * from s_gmapper where id=#{id};
+</select>
+
+<select id="sels_gmapperbysid" parameterType="int"  resultType="Bean.S_Gmapper"  >
+select * from s_gmapper where s_id=#{id};
+</select>
+
+</mapper>

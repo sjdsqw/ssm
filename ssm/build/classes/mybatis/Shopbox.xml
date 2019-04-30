@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="database.ShopboxMapper">
+
+	<resultMap type="Bean.Shopboxvo" id="shopboxandgood" >
+		<id column="id" property="id"  />
+		<result column="uid" property="uid" />
+		<result column="gid" property="gid" />
+		<result column="addtime" property="addtime" />
+		<result column="addnumber" property="addnumber" />
+		
+		<association property="good"  javaType="Bean.Goodvo" >
+			<id column="ingid" property="id" />
+			<result column="name" property="name" />
+			<result column="number" property="number" />
+			<result column="price" property="price" />
+			<result column="describe" property="describe" />
+			<result column="img" property="img" />
+
+		</association>
+
+	</resultMap>
+
+
+
+	<insert id="insertshopbox" parameterType="Bean.Shopboxvo">
+		insert into shopbox
+		values(#{id},#{uid},#{gid},#{addtime},#{addnumber})
+	</insert>
+	<delete id="delshopboxbyid" parameterType="int">
+		delete from shopbox where id=#{id}
+	</delete>
+	<update id="moshopbox" parameterType="Bean.Shopboxvo">
+		UPDATE shopbox SET
+		gid=#{gid},uid=#{uid},addtime=#{addtime},addnumber=#{addnumber}
+	</update>
+	<select id="showallshopbox" resultType="Bean.Shopboxvo">
+		select * from shopbox order by ord asc;
+	</select>
+
+	<select id="showshopboxbypage" resultType="Bean.Shopboxvo"
+		parameterType="util.Page">
+		select * from shopbox order by id desc limit #{start},#{size};
+	</select>
+	<select id="adselpage" resultType="int">
+		select count(*) from shopbox;
+	</select>
+
+	<select id="selshopboxbyuid" parameterType="String"
+		resultType="Bean.Shopboxvo">
+		select * from shopbox where uid=#{uid};
+	</select>
+
+	<select id="selshopboxbynamebygid" parameterType="int"
+		resultType="Bean.Shopboxvo">
+		select * from shopbox where gid = #{gid}
+	</select>
+
+	<select id="selshopboxandgoodbyuid" parameterType="String"
+		resultMap="shopboxandgood">
+		SELECT shopbox.id,shopbox.uid,shopbox.gid,shopbox.addtime,shopbox.addnumber,good.id ingid,good.name,good.number,good.price,good.`describe`,good.img
+		from shopbox,good
+		WHERE shopbox.uid=#{uid} AND shopbox.gid=good.id
+
+	</select>
+	
+	
+	<select id="selshopboxandgoodbyid" parameterType="int"
+		resultMap="shopboxandgood">
+		SELECT shopbox.id,shopbox.uid,shopbox.gid,shopbox.addtime,shopbox.addnumber,good.id ingid,good.name,good.number,good.price,good.`describe`,good.img
+		from shopbox,good
+		WHERE shopbox.id=#{id} AND shopbox.gid=good.id
+
+	</select>
+
+
+</mapper>

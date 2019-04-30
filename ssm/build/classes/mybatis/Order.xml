@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.OrderMapper" >
+<insert id="insertorder"  useGeneratedKeys="true"  keyProperty="id"  parameterType="Bean.Ordervo" >
+insert into `order`(uid,time,price,tel,local,lmessage,status) values(#{uid},#{time},#{price},#{tel},#{local},#{lmessage},#{status})
+</insert>
+<delete id="delorder" parameterType="int" >
+delete from `order` where id=#{id}
+</delete>
+<update id="moorder"  parameterType="Bean.Ordervo" >
+UPDATE `order` SET uid=#{uid},time=#{time},price=#{price},tel=#{tel},local=#{local},lmessage=#{lmessage},status=#{status} WHERE id=#{id}
+</update>
+<select id="showallorder" resultType="Bean.Ordervo" >
+select * from `order` ;
+</select>
+
+<select id="showorderbypage" resultType="Bean.Ordervo"  parameterType="util.Page"  >
+select  * from `order` order by id desc limit #{start},#{size};
+</select>
+<select id="adselpage" resultType="int" >
+select count(*) from `order`;
+</select>
+
+<select id="selorderbyuid"  parameterType="String"   resultType="Bean.Ordervo" >
+select * from `order` where uid=#{uid};
+</select>
+
+<select id="selorderbyid"  parameterType="int"   resultType="Bean.Ordervo" >
+select * from `order` where id = #{id}
+</select>
+
+
+</mapper>

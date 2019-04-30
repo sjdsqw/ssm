@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.UserMapper" >
+<insert id="insertuser" parameterType="Bean.Uservo" >
+insert into user values(#{id},#{password})
+</insert>
+<delete id="deluser" parameterType="String" >
+delete from user where id=#{id}
+</delete>
+	
+
+<update id="mouser"  parameterType="Bean.Uservo" >
+ UPDATE user SET password=#{password}  WHERE id=#{id}
+
+</update>
+<select id="showalluser" resultType="Bean.Uservo" >
+select * from user;
+</select>
+
+
+<select id="showuserbypage" resultType="Bean.Uservo"  parameterType="util.Page"  >
+select  * from user limit #{start},#{size}
+</select>
+
+<select id="adselpage" resultType="int" >
+select count(*) from user;
+</select>
+
+<select id="seluser"  parameterType="String"   resultType="Bean.Uservo" >
+select * from user where id=#{id};
+</select>
+
+
+</mapper>

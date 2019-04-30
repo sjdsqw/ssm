@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.OrderdetailMapper" >
+<insert id="insertorderdetail" parameterType="Bean.Orderdetailvo" >
+insert into orderdetail values(#{oid},#{gid},#{number})
+</insert>
+<delete id="delorderdetailbyoid" parameterType="int" >
+delete from orderdetail where oid=#{oid}
+</delete>
+<update id="moorderdetail"  parameterType="Bean.Orderdetailvo" >
+UPDATE orderdetail SET gid=#{gid},number=#{number} WHERE oid=#{oid}
+</update>
+<select id="showallorderdetail" resultType="Bean.Orderdetailvo" >
+select * from orderdetail order by ord asc;
+</select>
+
+<select id="showorderdetailbypage" resultType="Bean.Orderdetailvo"  parameterType="util.Page"  >
+select  * from orderdetail order by oid desc limit #{start},#{size};
+</select>
+<select id="adseldetailpage" resultType="int" >
+select count(*) from orderdetail;
+</select>
+
+<select id="selorderdetailbygid"  parameterType="int"   resultType="Bean.Orderdetailvo" >
+select * from orderdetail where gid=#{gid};
+</select>
+
+<select id="selorderdetailbyoid"  parameterType="int"   resultType="Bean.Orderdetailvo" >
+select * from orderdetail where oid = #{oid}
+</select>
+
+
+</mapper>

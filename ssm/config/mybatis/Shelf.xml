@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+<mapper namespace="database.ShelfMapper" >
+<insert id="insertshelf" parameterType="Bean.Shelfvo" >
+insert into shelf values(#{id},#{name},#{img},#{ord})
+</insert>
+<delete id="delshelf" parameterType="int" >
+delete from shelf where id=#{id}
+</delete>
+<update id="moshelf"  parameterType="Bean.Shelfvo" >
+UPDATE shelf SET `name`=#{name},img=#{img},ord=#{ord} WHERE id=#{id}
+</update>
+<select id="showallshelf" resultType="Bean.Shelfvo" >
+select * from shelf order by ord asc;
+</select>
+
+<select id="showshelfbypage" resultType="Bean.Shelfvo"  parameterType="util.Page"  >
+select  * from shelf order by id desc limit #{start},#{size};
+</select>
+<select id="adselpage" resultType="int" >
+select count(*) from shelf;
+</select>
+
+<select id="selshelf"  parameterType="int"   resultType="Bean.Shelfvo" >
+select * from shelf where id=#{id};
+</select>
+
+<select id="selshelfbyname"  parameterType="String"   resultType="Bean.Shelfvo" >
+select * from shelf where name = #{name}
+</select>
+
+
+</mapper>
